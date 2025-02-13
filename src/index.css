@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Chicle&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@font-face {
+  font-family: 'Gavency';
+  src: url('./fonts/gavency.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  font-family: "Poppins", serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color: black;
+  background-color: var(--background-color);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  &.light {
+    --background-color: #e9e5e2;
+    --border-color: #1b1a1a;
+    --grid-color: rgba(0, 0, 0, 0.1);
+    --primary-font-color: #1b1a1a;
+    --highlight-color: #d44a49;
+    --header-title-animation: url("data:image/svg+xml,%3Csvg width='2250' height='900' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg%3E%3Cpath fill='%23ba3a39' d='M0 0h2255v899H0z'/%3E%3Ccircle cx='366' cy='207' r='366' fill='%23d44a49'/%3E%3Ccircle cx='1777.5' cy='318.5' r='477.5' fill='%23d44a49'/%3E%3Ccircle cx='1215' cy='737' r='366' fill='%23a32a29'/%3E%3C/g%3E%3C/svg%3E%0A");
+    --second-section-background-color: #0c2424;
+    --second-section-secondary-color: #0f2f2e;
+  }
+  &.dark {
+    --background-color: #1b1a1a;
+    --border-color: #e9e5e2;
+    --grid-color: rgba(255, 255, 255, 0.05);
+    --primary-font-color: #e9e5e2;
+    --highlight-color: #40b2b0;
+    --header-title-animation: url("data:image/svg+xml,%3Csvg width='2250' height='900' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg%3E%3Cpath fill='%23289e9a' d='M0 0h2255v899H0z'/%3E%3Ccircle cx='366' cy='207' r='366' fill='%2340b2b0'/%3E%3Ccircle cx='1777.5' cy='318.5' r='477.5' fill='%2340b2b0'/%3E%3Ccircle cx='1215' cy='737' r='366' fill='%231e7d7b'/%3E%3C/g%3E%3C/svg%3E%0A");
+    --second-section-background-color: #240c0c;
+    --second-section-secondary-color: #2f0f0f;
+  }
+}
