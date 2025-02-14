@@ -33,7 +33,7 @@
     --border-color: #e9e5e2;
     --grid-color: rgba(255, 255, 255, 0.05);
     --primary-font-color: #e9e5e2;
-    --highlight-color: #40b2b0;
+    --highlight-color: #2bb5b6;
     --header-title-animation: url("data:image/svg+xml,%3Csvg width='2250' height='900' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg%3E%3Cpath fill='%23289e9a' d='M0 0h2255v899H0z'/%3E%3Ccircle cx='366' cy='207' r='366' fill='%2340b2b0'/%3E%3Ccircle cx='1777.5' cy='318.5' r='477.5' fill='%2340b2b0'/%3E%3Ccircle cx='1215' cy='737' r='366' fill='%231e7d7b'/%3E%3C/g%3E%3C/svg%3E%0A");
     --second-section-background-color: #240c0c;
     --second-section-secondary-color: #2f0f0f;

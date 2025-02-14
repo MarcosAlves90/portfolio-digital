@@ -25,6 +25,7 @@ import { BiLogoVisualStudio } from "react-icons/bi";
 
 const backgroundAnimation = keyframes`
   0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 `;
 
@@ -232,7 +233,7 @@ const SectionContent = styled.div`
         transition: all 0.2s ease-in-out;
       }
     }
-    &.sectionProfileImage {
+    &.sectionDarkBackground {
       background-color: var(--second-section-background-color);
       color: #e9e5e2;
       .imageBox {
@@ -253,7 +254,7 @@ const SectionContent = styled.div`
         }
       }
     }
-    &.sectionDetails {
+    &.sectionCommonBackground {
       color: var(--primary-font-color);
       .progress-bar {
         width: 100%;
@@ -359,7 +360,7 @@ export default function Main() {
         ref={sectionImageRef}
         className={isOpen ? "open" : "closed"}
       >
-        <article className="sectionProfileImage">
+        <article className="sectionDarkBackground">
           <div className="imageBox">
             <img src="/foto_perfil.png"></img>
           </div>
@@ -374,7 +375,7 @@ export default function Main() {
             </p>
           </div>
         </article>
-        <article className="sectionDetails">
+        <article className="sectionCommonBackground">
           <div className="textBox">
             <h1>contatos</h1>
             <div className="invertedBox">
@@ -516,6 +517,9 @@ export default function Main() {
               </div>
             </div>
           </div>
+        </article>
+        <article className="sectionDarkBackground">
+
         </article>
       </SectionContent>
     </main>
