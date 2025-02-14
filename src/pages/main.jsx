@@ -1,9 +1,30 @@
 import styled, { keyframes } from "styled-components";
 import { useState, useRef, useEffect } from "react";
+import {
+  FaHtml5,
+  FaCss3Alt,
+  FaJs,
+  FaReact,
+  FaNodeJs,
+  FaJava,
+  FaPhp,
+  FaPython,
+  FaGitAlt,
+} from "react-icons/fa";
+import {
+  SiAdobephotoshop,
+  SiAdobeillustrator,
+  SiFigma,
+  SiVuedotjs,
+  SiVite,
+  SiC,
+  SiSass,
+  SiBootstrap,
+} from "react-icons/si";
+import { BiLogoVisualStudio } from "react-icons/bi";
 
 const backgroundAnimation = keyframes`
   0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 `;
 
@@ -71,54 +92,10 @@ const SectionHeader = styled.div`
 `;
 
 const SectionContent = styled.div`
-  .sectionProfileImage {
-    background-color: var(--second-section-background-color);
-    color: #e9e5e2;
-    .imageBox {
-      height: 16rem;
-      width: 21rem;
-      background-color: var(--second-section-secondary-color);
-      display: flex;
-      align-items: flex-end;
-      img {
-        width: 100%;
-        height: auto;
-        transition: all 0.2s ease-in-out;
-        transform-origin: bottom;
-        cursor: pointer;
-        &:active {
-          transform: scale(0.9);
-        }
-      }
-    }
-  }
-  .sectionDetails {
-    color: var(--primary-font-color);
-    .progress-bar {
-      width: 100%;
-      overflow: hidden;
-      display: flex;
-      gap: 0.5rem;
-      .progress-segment {
-        height: 0.5rem;
-        background-color: var(--background-color);
-      }
-    }
-  }
-  .textBox {
-    h1 {
-      font-size: 3rem;
-      margin: 0;
-      font-weight: 600;
-    }
-    p,
-    h1 {
-      text-align: justify;
-    }
-  }
   article {
+    transition: all 0.2s ease-in-out;
     display: flex;
-    gap: 6rem;
+    gap: 4rem;
     justify-content: center;
     align-items: center;
     width: 100%;
@@ -134,7 +111,6 @@ const SectionContent = styled.div`
       justify-content: center;
       align-items: start;
       gap: 1rem;
-      width: 25rem;
       .contactItem {
         display: flex;
         align-items: center;
@@ -175,15 +151,13 @@ const SectionContent = styled.div`
         }
       }
       &.education {
-        width: 100%;
         text-align: start;
-        box-sizing: border-box;
         ul {
           list-style-type: none;
           padding: 0;
         }
         li::before {
-          content: '';
+          content: "";
           background-color: var(--highlight-color);
           width: 0.5rem;
           height: 0.5rem;
@@ -205,8 +179,103 @@ const SectionContent = styled.div`
           width: 6rem;
         }
       }
-      @media (max-width: 1180px) {
-        width: 20rem;
+      &.skills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        justify-content: center;
+        flex-direction: row;
+        .skill {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          font-size: 0.9rem;
+          width: 4rem;
+          svg {
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+            color: var(--highlight-color);
+            width: 65px;
+            height: 65px;
+            &:active {
+              transform: scale(0.75);
+            }
+          }
+          span {
+            margin-top: 0.5rem;
+            font-weight: 600;
+            color: var(--background-color);
+          }
+          @media (max-width: 1050px) {
+            width: 3rem;
+            font-size: 0.7rem;
+            svg {
+              width: 50px;
+              height: 50px;
+            }
+          }
+        }
+        @media (max-width: 1050px) {
+          gap: 1rem;
+        }
+      }
+      &.languages,
+      .contactItem {
+        width: 25rem;
+        transition: all 0.2s ease-in-out;
+      }
+      &.education,
+      &.skills {
+        box-sizing: border-box;
+        max-width: 55rem;
+        transition: all 0.2s ease-in-out;
+      }
+    }
+    &.sectionProfileImage {
+      background-color: var(--second-section-background-color);
+      color: #e9e5e2;
+      .imageBox {
+        height: 16rem;
+        width: 21rem;
+        background-color: var(--second-section-secondary-color);
+        display: flex;
+        align-items: flex-end;
+        img {
+          width: 100%;
+          height: auto;
+          transition: all 0.2s ease-in-out;
+          transform-origin: bottom;
+          cursor: pointer;
+          &:active {
+            transform: scale(0.9);
+          }
+        }
+      }
+    }
+    &.sectionDetails {
+      color: var(--primary-font-color);
+      .progress-bar {
+        width: 100%;
+        overflow: hidden;
+        display: flex;
+        gap: 0.5rem;
+        .progress-segment {
+          height: 0.5rem;
+          background-color: var(--background-color);
+        }
+      }
+    }
+    .textBox {
+      box-sizing: border-box;
+      h1 {
+        font-size: 3rem;
+        margin: 0;
+        font-weight: 600;
+      }
+      p,
+      h1 {
+        text-align: justify;
       }
     }
   }
@@ -219,6 +288,22 @@ const SectionContent = styled.div`
   }
   &.closed {
     display: none;
+  }
+  @media (max-width: 1180px) {
+    article {
+      gap: 2rem;
+
+      .invertedBox {
+        &.languages,
+        .contactItem {
+          width: 20rem;
+        }
+        &.education,
+        &.skills {
+          width: 100%;
+        }
+      }
+    }
   }
 `;
 
@@ -252,16 +337,15 @@ export default function Main() {
         className="progress-segment"
         style={{
           width: "12.5%",
-          backgroundColor: index < progress ? "var(--highlight-color)" : "var(--background-color)"
+          backgroundColor:
+            index < progress
+              ? "var(--highlight-color)"
+              : "var(--background-color)",
         }}
       ></div>
     ));
-  
-    return (
-      <div className={`progress-bar ${language}`}>
-        {segments}
-      </div>
-    );
+
+    return <div className={`progress-bar ${language}`}>{segments}</div>;
   }
 
   return (
@@ -329,22 +413,109 @@ export default function Main() {
             <div className="invertedBox languages">
               <p>Português</p>
               <ProgressBar language="portuguese" progress={8} />
-              <p className="description">Meu idioma natal, nenhuma dificuldade</p>
+              <p className="description">
+                Meu idioma natal, nenhuma dificuldade
+              </p>
               <p>Inglês</p>
               <ProgressBar language="english" progress={5} />
-              <p className="description">Eu entendo bem, mas minha conversação ainda pode melhorar</p>
+              <p className="description">
+                Eu entendo bem, mas minha conversação ainda pode melhorar
+              </p>
             </div>
           </div>
           <div className="textBox">
             <h1>educação / experiência</h1>
             <div className="invertedBox education">
-            <ul>
-              <li><span>2022 - 2023</span> Técnico em Informática para Internet</li>
-              <li><span>2024 - 2026</span> Tecnólogo em Desenvolvimento de Software Multiplataforma</li>
-              <li><span>2024 - ...</span> Fazendo freelances e criando projetos pessoais e acadêmicos</li>
-            </ul>
+              <ul>
+                <li>
+                  <span>2022 - 2023</span> Técnico em Informática para Internet
+                </li>
+                <li>
+                  <span>2024 - 2026</span> Tecnólogo em Desenvolvimento de
+                  Software Multiplataforma
+                </li>
+                <li>
+                  <span>2024 - ...</span> Fazendo freelances e criando projetos
+                  pessoais e acadêmicos
+                </li>
+              </ul>
+            </div>
+            <h1>habilidades</h1>
+            <div className="invertedBox skills">
+              <div className="skill">
+                <FaHtml5 />
+                <span>HTML5</span>
+              </div>
+              <div className="skill">
+                <FaCss3Alt />
+                <span>CSS3</span>
+              </div>
+              <div className="skill">
+                <FaJs />
+                <span>JavaScript</span>
+              </div>
+              <div className="skill">
+                <FaReact />
+                <span>React</span>
+              </div>
+              <div className="skill">
+                <FaNodeJs />
+                <span>Node.js</span>
+              </div>
+              <div className="skill">
+                <FaPhp />
+                <span>PHP</span>
+              </div>
+              <div className="skill">
+                <FaJava />
+                <span>Java</span>
+              </div>
+              <div className="skill">
+                <SiC />
+                <span>C</span>
+              </div>
+              <div className="skill">
+                <FaPython />
+                <span>Python</span>
+              </div>
+              <div className="skill">
+                <SiSass />
+                <span>Sass</span>
+              </div>
+              <div className="skill">
+                <SiBootstrap />
+                <span>Bootstrap</span>
+              </div>
+              <div className="skill">
+                <FaGitAlt />
+                <span>Git</span>
+              </div>
+              <div className="skill">
+                <BiLogoVisualStudio />
+                <span>VSCode</span>
+              </div>
+              <div className="skill">
+                <SiAdobephotoshop />
+                <span>Photoshop</span>
+              </div>
+              <div className="skill">
+                <SiAdobeillustrator />
+                <span>Illustrator</span>
+              </div>
+              <div className="skill">
+                <SiFigma />
+                <span>Figma</span>
+              </div>
+              <div className="skill">
+                <SiVuedotjs />
+                <span>Vue.js</span>
+              </div>
+              <div className="skill">
+                <SiVite />
+                <span>Vite</span>
+              </div>
+            </div>
           </div>
-        </div>
         </article>
       </SectionContent>
     </main>

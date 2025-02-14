@@ -39,3 +39,28 @@
     --second-section-secondary-color: #2f0f0f;
   }
 }
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--primary-font-color);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--highlight-color);
+  border-radius: 10px;
+  border: 3px solid var(--background-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--background-color);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--highlight-color) var(--primary-font-color);
+}
