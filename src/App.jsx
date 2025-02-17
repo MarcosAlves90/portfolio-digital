@@ -1,5 +1,5 @@
 import './App.css'
-import Main from './pages/main.jsx'
+import MainPage from './pages/MainPage.jsx'
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { Moon, Sun } from "lucide-react";
@@ -110,7 +110,7 @@ function App() {
           {theme === "light" ? <Moon /> : <Sun />}
         </button>
       </Navbar>
-      <Main/>
+      <MainPage/>
     </>
   )
 }
