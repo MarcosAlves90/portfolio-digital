@@ -1,61 +1,56 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useCallback, useContext } from 'react';
 import styled from 'styled-components';
+import { UserContext } from "../UserContext.jsx";
+import PropTypes from "prop-types";
 
 const SlideshowContainer = styled.div`
     max-width: 1000px;
     position: relative;
     margin: auto;
-    img {
-        border-radius: 10px;
-    }
 `;
 
 const Slide = styled.div`
     display: ${props => (props.$active ? 'block' : 'none')};
     width: 640px;
     height: 360px;
+
     @media (max-width: 1180px) {
         width: 480px;
         height: 270px;
     }
 `;
 
-const NumberText = styled.div`
-    color: #f2f2f2;
-    font-size: 12px;
-    padding: 8px 12px;
-    position: absolute;
-    top: 0;
-    mix-blend-mode: difference;
-`;
-
-const CaptionText = styled.div`
-    color: #f2f2f2;
-    font-size: 15px;
-    padding: 8px 12px;
-    position: absolute;
-    bottom: 0;
+const SlideImage = styled.img`
     width: 100%;
-    text-align: center;
-    mix-blend-mode: difference;
-    box-sizing: border-box;
+    height: 100%;
+    object-fit: cover;
 `;
 
-const PrevNextButton = styled.a`
+const TextOverlay = styled.div`
+    color: #f2f2f2;
+    font-size: ${props => props.$size}px;
+    padding: 8px 12px;
+    position: absolute;
+    mix-blend-mode: difference;
+    background: rgba(0, 0, 0, 0.3);
+`;
+
+const NavigationButton = styled.button`
     cursor: pointer;
     position: absolute;
     top: 50%;
     width: auto;
     padding: 14px;
     margin-top: -22px;
-    color: white;
     font-weight: bold;
     font-size: 18px;
     transition: 0.6s ease;
     user-select: none;
-    background-color: rgba(var(--highlight-color-rgb), 0.7);   
+    border: none;
+    background-color: rgba(var(--highlight-color-rgb), 0.4);
     backdrop-filter: blur(10px);
-    
+    color: white;
+
     &.prev {
         left: 0;
         border-radius: 0 20px 20px 0;
@@ -71,73 +66,121 @@ const DotsContainer = styled.div`
     text-align: center;
 `;
 
-const Dot = styled.span`
+const Dot = styled.button`
     cursor: pointer;
     height: 15px;
     width: 15px;
-    margin: 10px 2px 0 2px;
-    background-color: rgba(var(--highlight-color-rgb), 0.5);
+    margin: 0 4px;
+    border: none;
     border-radius: 50%;
-    display: inline-block;
-    transition: background-color 0.6s ease;
+    background-color: rgba(var(--highlight-color-rgb), 0.5);
+    transition: background-color 0.3s ease;
 
-    &.active, &:hover {
+    &:hover,
+    &:focus,
+    &[aria-current="true"] {
         background-color: rgba(var(--highlight-color-rgb), 1);
+        outline: none;
     }
 `;
 
 export default function SlideShow({ slides }) {
-    const [slideIndex, setSlideIndex] = useState(1);
+    const { slideIndex, setSlideIndex } = useContext(UserContext);
     const intervalRef = useRef(null);
+    const totalSlides = slides.length;
 
-    const resetInterval = () => {
-        if (intervalRef.current) {
-            clearInterval(intervalRef.current);
-        }
-        intervalRef.current = setInterval(() => {
-            setSlideIndex((prevIndex) => (prevIndex % slides.length) + 1);
-        }, 7000);
-    };
+    const nextSlide = useCallback(() => {
+        setSlideIndex(prev => (prev % totalSlides) + 1);
+    }, [totalSlides]);
 
-    const plusSlides = (n) => {
-        setSlideIndex((prevIndex) => {
-            let newIndex = prevIndex + n;
-            if (newIndex > slides.length) newIndex = 1;
-            if (newIndex < 1) newIndex = slides.length;
-            return newIndex;
+    const resetInterval = useCallback(() => {
+        clearInterval(intervalRef.current);
+        intervalRef.current = setInterval(nextSlide, 7000);
+    }, [nextSlide]);
+
+    const changeSlide = useCallback((n) => {
+        setSlideIndex(prev => {
+            const newIndex = (prev - 1 + n + totalSlides) % totalSlides;
+            return newIndex + 1;
         });
         resetInterval();
-    };
+    }, [totalSlides, resetInterval]);
 
-    const currentSlide = (n) => {
+    const goToSlide = useCallback((n) => {
         setSlideIndex(n);
         resetInterval();
-    };
+    }, [resetInterval]);
 
     useEffect(() => {
         resetInterval();
         return () => clearInterval(intervalRef.current);
-    }, [slides.length]);
+    }, [resetInterval]);
 
     return (
         <div>
             <SlideshowContainer>
-                {slides.map((slide, index) => (
-                    <Slide key={index} $active={slideIndex === index + 1}>
-                        <NumberText>{index + 1} / {slides.length}</NumberText>
-                        <img src={slide.src} style={{ width: '100%', height: '100%' }} alt={`Slide ${index + 1}`} />
-                        <CaptionText>{slide.caption}</CaptionText>
-                    </Slide>
-                ))}
-                <PrevNextButton className="prev" onClick={() => plusSlides(-1)}>❮</PrevNextButton>
-                <PrevNextButton className="next" onClick={() => plusSlides(1)}>❯</PrevNextButton>
+                {slides.map((slide, index) => {
+                    const slideNumber = index + 1;
+                    return (
+                        <Slide key={slide.src} $active={slideIndex === slideNumber}>
+                            <TextOverlay $size={12} style={{ top: 0 }}>
+                                {slideNumber} / {totalSlides}
+                            </TextOverlay>
+
+                            <SlideImage
+                                src={slide.src}
+                                alt={slide.caption || `Slide ${slideNumber}`}
+                                loading="lazy"
+                            />
+
+                            {slide.caption && (
+                                <TextOverlay $size={15} style={{ width: "100%", bottom: 0, textAlign: 'center' }}>
+                                    {slide.caption}
+                                </TextOverlay>
+                            )}
+                        </Slide>
+                    );
+                })}
+
+                <NavigationButton
+                    className="prev"
+                    onClick={() => changeSlide(-1)}
+                    aria-label="Previous slide"
+                >
+                    ❮
+                </NavigationButton>
+
+                <NavigationButton
+                    className="next"
+                    onClick={() => changeSlide(1)}
+                    aria-label="Next slide"
+                >
+                    ❯
+                </NavigationButton>
             </SlideshowContainer>
+
             <DotsContainer>
-                {slides.map((_, index) => (
-                    <Dot key={index} className={slideIndex === index + 1 ? 'active' : ''}
-                         onClick={() => currentSlide(index + 1)}></Dot>
-                ))}
+                {slides.map((_, index) => {
+                    const slideNumber = index + 1;
+                    return (
+                        <Dot
+                            key={slideNumber}
+                            onClick={() => goToSlide(slideNumber)}
+                            aria-label={`Go to slide ${slideNumber}`}
+                            aria-current={slideIndex === slideNumber}
+                        />
+                    );
+                })}
             </DotsContainer>
         </div>
     );
 }
+
+SlideShow.propTypes = {
+    slides: PropTypes.arrayOf(
+        PropTypes.shape({
+            src: PropTypes.string.isRequired,
+            caption: PropTypes.string,
+        }).isRequired
+    ).isRequired,
+};

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import {useState, useRef, useEffect, useContext} from 'react';
 import styled, { keyframes } from 'styled-components';
 import { FaHtml5, FaCss3Alt, FaJs, FaReact, FaNodeJs, FaJava, FaPhp, FaPython, FaGitAlt } from 'react-icons/fa';
 import { SiAdobephotoshop, SiAdobeillustrator, SiFigma, SiVuedotjs, SiVite, SiC, SiSass, SiBootstrap } from 'react-icons/si';
@@ -6,6 +6,7 @@ import { BiLogoVisualStudio } from 'react-icons/bi';
 import Slideshow from '../components/slideshow.jsx';
 import ProgressBar from '../components/ProgressBar';
 import ProjectCards from '../components/ProjectCards';
+import {System, UserContext} from "../UserContext.jsx";
 
 const backgroundAnimation = keyframes`
     0% { background-position: 0% 50%; }
@@ -350,10 +351,11 @@ const SectionContent = styled.div`
     }
 `;
 
-export default function MainPage() {
+export default function MainPage({sectionRefs}) {
     const [isOpen, setIsOpen] = useState(false);
     const sectionImageRef = useRef(null);
     const [currentProject, setCurrentProject] = useState(0);
+    const {setSlideIndex} = useContext(UserContext);
 
     const toggleIsOpen = () => {
         setIsOpen(!isOpen);
@@ -375,11 +377,15 @@ export default function MainPage() {
     const projects = [
         {
             name: "MidNight",
-            description: "Descrição do projeto 1",
+            description: "Um projeto de ficha online feito para o jogo de RPG de mesa virtual \"The Mental World\". " +
+                "O projeto utiliza tecnologias como HTML, CSS, JavaScript, React e Vite para seu funcionamento e " +
+                "estilização. A ideia é que o usuário seja capaz de montar sua ficha na plataforma e baixá-la em " +
+                "formato JSON para usos futuros.",
             smallDescription: "Plataforma de fichas de RPG de mesa.",
             images: [
-                { src: 'https://images.ctfassets.net/ihx0a8chifpc/GTlzd4xkx4LmWsG1Kw1BB/ad1834111245e6ee1da4372f1eb5876c/placeholder.com-1280x720.png?w=1920&q=60&fm=webp', caption: 'Caption Text' },
-                { src: 'https://css-tricks.com/wp-content/uploads/2016/01/the-difference-placeholder.png', caption: 'Caption Text' },
+                { src: './midnight/homepage.png', caption: 'Página inicial' },
+                { src: './midnight/individual.png', caption: 'Página de individual' },
+                { src: './midnight/caracteristicas.png', caption: 'Página de características' },
             ]
         },
         {
@@ -391,7 +397,25 @@ export default function MainPage() {
                 { src: 'https://css-tricks.com/wp-content/uploads/2016/01/the-difference-placeholder.png', caption: 'Caption Text' },
             ]
         },
+        {
+            name: "Dicenders",
+            description: "O projeto Dicenders foi meu Trabalho de Conclusão de Curso na Etec Professora Maria Cristina " +
+                "Medeiros, onde cursei Informática para Internet. Ele consiste em uma plataforma que integra recursos " +
+                "de tabletop, ou seja, um aplicativo web para jogar RPG em formato virtual, com funcionalidades de uma " +
+                "rede social.",
+            smallDescription: "Tabletop virtual e rede social voltada à RPG.",
+            images: [
+                { src: 'https://images.ctfassets.net/ihx0a8chifpc/GTlzd4xkx4LmWsG1Kw1BB/ad1834111245e6ee1da4372f1eb5876c/placeholder.com-1280x720.png?w=1920&q=60&fm=webp', caption: 'Caption Text' },
+                { src: 'https://css-tricks.com/wp-content/uploads/2016/01/the-difference-placeholder.png', caption: 'Caption Text' },
+            ]
+        }
+
     ];
+
+    function handleProjectClick(index) {
+        setSlideIndex(1);
+        setCurrentProject(index);
+    }
 
     return (
         <main>
@@ -401,14 +425,14 @@ export default function MainPage() {
                 <button onClick={toggleIsOpen}>{isOpen ? "Fechar" : "Abrir"}</button>
             </SectionHeader>
             <SectionContent ref={sectionImageRef} className={isOpen ? "" : "closed"}>
-                <article className="sectionDarkBackground">
+                <article ref={el => sectionRefs.current[0] = el} className="sectionDarkBackground">
                     <div className="imageBox">
                         <img src="/foto_perfil.png" alt="Profile" />
                     </div>
                     <div className="textBox">
                         <h1>quem sou <strong>EU</strong>?</h1>
                         <p>
-                            Sou um desenvolvedor full-stack, designer gráfico e escritor que está sempre disposto a encarar desafios.
+                            Sou um desenvolvedor full-stack, designer gráfico e escritor<br/>que está sempre disposto a encarar desafios.
                         </p>
                     </div>
                 </article>
@@ -478,7 +502,7 @@ export default function MainPage() {
                         </div>
                     </div>
                 </article>
-                <article className="sectionDarkBackground projects">
+                <article ref={el => sectionRefs.current[1] = el} className="sectionDarkBackground projects">
                     <div className="textBox viewer">
                         <div className="text">
                             <h1>{projects[currentProject].name}</h1>
@@ -486,7 +510,7 @@ export default function MainPage() {
                         </div>
                         <Slideshow slides={projects[currentProject].images} />
                     </div>
-                    <ProjectCards projects={projects} setCurrentProject={setCurrentProject} />
+                    <ProjectCards projects={projects} setCurrentProject={handleProjectClick} />
                 </article>
             </SectionContent>
         </main>

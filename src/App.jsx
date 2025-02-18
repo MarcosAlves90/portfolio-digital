@@ -1,7 +1,7 @@
 import './App.css'
 import MainPage from './pages/MainPage.jsx'
 import styled from "styled-components";
-import { useState, useEffect } from "react";
+import {useState, useEffect, useRef} from "react";
 import { Moon, Sun } from "lucide-react";
 
 const Navbar = styled.nav`
@@ -11,12 +11,12 @@ const Navbar = styled.nav`
   left: 0;
   z-index: 1000;
   width: 100%;
-  background-color: var(--background-color);
-  border-bottom: 2px solid var(--border-color);
+  background-color: ${props => props.$isNearSection ? 'var(--second-section-background-color)' : 'var(--background-color)'};
+  border-bottom: 2px solid ${props => props.$isNearSection ? 'var(--background-color)' : 'var(--border-color)'};
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: var(--primary-font-color);
+  color: ${props => props.$isNearSection ? 'var(--background-color)' : 'var(--primary-font-color)'};
   padding: 0 2rem;
   box-sizing: border-box;
   transition: all 0.2s ease-in-out;
@@ -35,14 +35,14 @@ const Navbar = styled.nav`
     }
   }
   button {
-    background-color: var(--primary-font-color);
+    background-color: ${props => props.$isNearSection ? 'var(--background-color)' : 'var(--primary-font-color)'};
     border: none;
     padding: 1rem 1rem;
     cursor: pointer;
     border-radius: 5px;
     transition: all 0.2s ease-in-out;
     .lucide {
-      color: var(--background-color);
+      color: ${props => props.$isNearSection ? 'var(--primary-font-color)' : 'var(--background-color)'};
       stroke-width: 2;
     }
     &:hover {
@@ -68,6 +68,8 @@ function App() {
   const [isSmall, setIsSmall] = useState(false);
   const [textIndex, setTextIndex] = useState(0);
   const texts = ["隠者", "巡礼者", "賢い", "勇者", "探求者", "賢者", "冒険者", "守護者"];
+  const [isNearSection, setIsNearSection] = useState(false);
+  const sectionRefs = useRef([]);
   const changeTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
     setTheme(newTheme);
@@ -84,6 +86,14 @@ function App() {
       } else {
         setIsSmall(false);
       }
+
+      const navbarHeight = document.querySelector('nav').offsetHeight;
+      const isNearAnySection = sectionRefs.current.some(section => {
+        const sectionTop = section.getBoundingClientRect().top;
+        return sectionTop <= navbarHeight && sectionTop + section.offsetHeight >= 0;
+      });
+
+      setIsNearSection(isNearAnySection);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -102,7 +112,7 @@ function App() {
 
   return (
     <>
-      <Navbar className={isSmall ? "small" : ""}>
+      <Navbar className={isSmall ? "small" : ""} $isNearSection={isNearSection}>
         <h1>
           {texts[textIndex]}
         </h1>
@@ -110,7 +120,7 @@ function App() {
           {theme === "light" ? <Moon /> : <Sun />}
         </button>
       </Navbar>
-      <MainPage/>
+      <MainPage sectionRefs={sectionRefs}/>
     </>
   )
 }

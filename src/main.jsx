@@ -3,9 +3,12 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import {System} from "./UserContext.jsx";
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
+      <System>
+        <App />
+      </System>
   </StrictMode>,
 )
