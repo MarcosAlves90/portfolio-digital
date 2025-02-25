@@ -19,26 +19,26 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   &.light {
-    --background-color: #e9e5e2;
+    --background-color: #f2d6bd;
     --border-color: #1b1a1a;
     --grid-color: rgba(0, 0, 0, 0.1);
     --primary-font-color: #1b1a1a;
     --highlight-color: #d44a49;
-    --highlight-color-rgb: 212, 74, 73;
+    --highlight-color-rgb: 201, 92, 92;
     --header-title-animation: url("data:image/svg+xml,%3Csvg width='2250' height='900' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg%3E%3Cpath fill='%23ba3a39' d='M0 0h2255v899H0z'/%3E%3Ccircle cx='366' cy='207' r='366' fill='%23d44a49'/%3E%3Ccircle cx='1777.5' cy='318.5' r='477.5' fill='%23d44a49'/%3E%3Ccircle cx='1215' cy='737' r='366' fill='%23a32a29'/%3E%3C/g%3E%3C/svg%3E%0A");
-    --second-section-background-color: #0c2424;
-    --second-section-secondary-color: #0f2f2e;
+    --second-section-background-color: #4a1818;
+    --second-section-secondary-color: #381212;
   }
   &.dark {
     --background-color: #1b1a1a;
-    --border-color: #e9e5e2;
+    --border-color: #f2d6bd;
     --grid-color: rgba(255, 255, 255, 0.05);
-    --primary-font-color: #e9e5e2;
+    --primary-font-color: #f2d6bd;
     --highlight-color: #2bb5b6;
-    --highlight-color-rgb: 43, 181, 182;
+    --highlight-color-rgb: 54, 163, 163;
     --header-title-animation: url("data:image/svg+xml,%3Csvg width='2250' height='900' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg%3E%3Cpath fill='%23289e9a' d='M0 0h2255v899H0z'/%3E%3Ccircle cx='366' cy='207' r='366' fill='%2340b2b0'/%3E%3Ccircle cx='1777.5' cy='318.5' r='477.5' fill='%2340b2b0'/%3E%3Ccircle cx='1215' cy='737' r='366' fill='%231e7d7b'/%3E%3C/g%3E%3C/svg%3E%0A");
-    --second-section-background-color: #240c0c;
-    --second-section-secondary-color: #2f0f0f;
+    --second-section-background-color: #0c2424;
+    --second-section-secondary-color: #103030;
   }
 }
 

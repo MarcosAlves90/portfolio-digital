@@ -14,7 +14,7 @@ const Slide = styled.div`
     width: 640px;
     height: 360px;
 
-    @media (max-width: 1180px) {
+    @media (max-width: 1500px) {
         width: 480px;
         height: 270px;
     }
@@ -33,6 +33,7 @@ const TextOverlay = styled.div`
     position: absolute;
     mix-blend-mode: difference;
     background: rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
 `;
 
 const NavigationButton = styled.button`
@@ -73,7 +74,7 @@ const Dot = styled.button`
     margin: 0 4px;
     border: none;
     border-radius: 50%;
-    background-color: rgba(var(--highlight-color-rgb), 0.5);
+    background-color: rgba(var(--highlight-color-rgb), 0.3);
     transition: background-color 0.3s ease;
 
     &:hover,
@@ -123,9 +124,6 @@ export default function SlideShow({ slides }) {
                     const slideNumber = index + 1;
                     return (
                         <Slide key={slide.src} $active={slideIndex === slideNumber}>
-                            <TextOverlay $size={12} style={{ top: 0 }}>
-                                {slideNumber} / {totalSlides}
-                            </TextOverlay>
 
                             <SlideImage
                                 src={slide.src}

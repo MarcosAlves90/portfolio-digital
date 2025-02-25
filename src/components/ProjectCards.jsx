@@ -1,15 +1,19 @@
 import styled from 'styled-components';
 
 const CardContainer = styled.div`
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 2rem;
-    justify-content: center;
+    justify-items: center;
     align-items: start;
+    width: 100%;
+    @media (max-width: 1350px) {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
 `;
 
 const Card = styled.div`
-    width: 250px;
+    width: 100%;
     overflow: hidden;
     cursor: pointer;
 
@@ -19,13 +23,13 @@ const Card = styled.div`
 
     img {
         width: 100%;
-        height: 150px;
+        height: 100%;
         object-fit: cover;
     }
 
     .card-content {
         padding: 1rem;
-        color: #e9e5e2;
+        color: #F2E3D5;
         width: 100%;
         box-sizing: border-box;
 
@@ -37,6 +41,15 @@ const Card = styled.div`
         p {
             font-size: 0.9rem;
             margin: 0;
+        }
+
+        @media (max-width: 1350px) {
+            h2 {
+                font-size: 1rem;
+            }
+            p {
+                font-size: 0.8rem;
+            }
         }
     }
 `;

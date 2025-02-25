@@ -6,7 +6,7 @@ import { BiLogoVisualStudio } from 'react-icons/bi';
 import Slideshow from '../components/slideshow.jsx';
 import ProgressBar from '../components/ProgressBar';
 import ProjectCards from '../components/ProjectCards';
-import {System, UserContext} from "../UserContext.jsx";
+import {UserContext} from "../UserContext.jsx";
 
 const backgroundAnimation = keyframes`
     0% { background-position: 0% 50%; }
@@ -202,13 +202,13 @@ const SectionContent = styled.div`
                     align-items: center;
                     text-align: center;
                     font-size: 0.9rem;
-                    width: 4rem;
+                    width: 3.8rem;
 
                     svg {
                         cursor: pointer;
                         color: var(--highlight-color);
-                        width: 65px;
-                        height: 65px;
+                        width: 50px;
+                        height: 50px;
 
                         &:active {
                             transform: scale(0.75);
@@ -224,10 +224,6 @@ const SectionContent = styled.div`
                     @media (max-width: 1050px) {
                         width: 3rem;
                         font-size: 0.7rem;
-                        svg {
-                            width: 50px;
-                            height: 50px;
-                        }
                     }
                 }
 
@@ -238,48 +234,14 @@ const SectionContent = styled.div`
 
             &.languages,
             .contactItem {
-                width: 25rem;
+                width: 22rem;
             }
 
             &.education,
             &.skills {
                 box-sizing: border-box;
-                max-width: 55rem;
+                max-width: 50rem;
             }
-        }
-
-        &.sectionDarkBackground {
-            background-color: var(--second-section-background-color);
-            color: #e9e5e2;
-
-            .imageBox {
-                height: 16rem;
-                width: 21rem;
-                background-color: var(--second-section-secondary-color);
-                display: flex;
-                align-items: flex-end;
-
-                img {
-                    width: 100%;
-                    height: auto;
-                    transform-origin: bottom;
-                    cursor: pointer;
-
-                    &:active {
-                        transform: scale(0.9);
-                    }
-                }
-            }
-
-            &.projects {
-                display: flex;
-                flex-direction: column;
-                box-sizing: border-box;
-            }
-        }
-
-        &.sectionCommonBackground {
-            color: var(--primary-font-color);
         }
 
         .textBox {
@@ -301,30 +263,75 @@ const SectionContent = styled.div`
                 gap: 4rem;
                 justify-content: center;
                 align-items: start;
+                width: 100%;
 
-                .viewer-image {
-                    width: 40%;
+                .firstSlice {
+                    width: 100%;
+                    .buttonsBox {
+                        gap: 1rem;
+                        .clickButtton {
+                            background-color: #f2d6bd;
+                            outline: none;
+                            color: var(--highlight-color);
+                            border: none;
+                            padding: 0.7rem 1rem;
+                            font-size: 1rem;
+                            cursor: pointer;
+                            border-radius: 5px;
+                            width: 100%;
+                            font-family: "Poppins", serif;
+                            font-weight: 600;
+                            
+                            &.reversed {
+                                background-color: var(--highlight-color);
+                                color: #f2d6bd;
+                            }
+
+                            &:active {
+                                transform: scale(0.9);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &.sectionDarkBackground {
+            background-color: var(--second-section-background-color);
+            color: #f2d6bd;
+
+            .imageBox {
+                height: 16rem;
+                width: 21rem;
+                background-color: var(--second-section-secondary-color);
+                display: flex;
+                align-items: flex-end;
+
+                img {
+                    width: 100%;
                     height: auto;
+                    transform-origin: bottom;
                     cursor: pointer;
 
                     &:active {
                         transform: scale(0.9);
                     }
-
-                    img {
-                        width: 100%;
-                        height: auto;
-                    }
-                }
-
-                .text {
-                    width: 26rem;
-                }
-
-                @media (max-width: 1180px) {
-                    gap: 2rem;
                 }
             }
+
+            &.projects {
+                padding: 7rem 18vw;
+                display: flex;
+                flex-direction: column;
+                box-sizing: border-box;
+                @media (max-width: 1350px) {
+                    padding: 7rem 10vw;
+                }
+            }
+        }
+
+        &.sectionCommonBackground {
+            color: var(--primary-font-color);
         }
     }
     
@@ -386,7 +393,15 @@ export default function MainPage({sectionRefs}) {
                 { src: './midnight/homepage.png', caption: 'Página inicial' },
                 { src: './midnight/individual.png', caption: 'Página de individual' },
                 { src: './midnight/caracteristicas.png', caption: 'Página de características' },
-            ]
+                { src: './midnight/pagina_status.png', caption: 'Página de status' },
+                { src: './midnight/pagina_skills.png', caption: 'Página de skills' },
+                { src: './midnight/pagina_anotacoes.png', caption: 'Página de anotações' },
+                { src: './midnight/pagina_inventario.png', caption: 'Página de inventário' },
+                { src: './midnight/pagina_configuracoes.png', caption: 'Página de configurações' },
+                { src: './midnight/pagina_login.png', caption: 'Página de login' },
+            ],
+            site: "https://tmwcse.vercel.app/",
+            code: "https://github.com/MarcosAlves90/projetoRPG_TMW_Ficha/tree/develop",
         },
         {
             name: "Bunchin",
@@ -395,7 +410,8 @@ export default function MainPage({sectionRefs}) {
             images: [
                 { src: 'https://images.ctfassets.net/ihx0a8chifpc/GTlzd4xkx4LmWsG1Kw1BB/ad1834111245e6ee1da4372f1eb5876c/placeholder.com-1280x720.png?w=1920&q=60&fm=webp', caption: 'Caption Text' },
                 { src: 'https://css-tricks.com/wp-content/uploads/2016/01/the-difference-placeholder.png', caption: 'Caption Text' },
-            ]
+            ],
+            code: "https://github.com/MarcosAlves90/bunchin/tree/main",
         },
         {
             name: "Dicenders",
@@ -407,9 +423,29 @@ export default function MainPage({sectionRefs}) {
             images: [
                 { src: 'https://images.ctfassets.net/ihx0a8chifpc/GTlzd4xkx4LmWsG1Kw1BB/ad1834111245e6ee1da4372f1eb5876c/placeholder.com-1280x720.png?w=1920&q=60&fm=webp', caption: 'Caption Text' },
                 { src: 'https://css-tricks.com/wp-content/uploads/2016/01/the-difference-placeholder.png', caption: 'Caption Text' },
-            ]
+            ],
+            site: "https://dicenders-ai8s.onrender.com/",
+        },
+        {
+            name: "Além do Olhar",
+            description: "Plataforma online oficial que apresenta diversos trabalhos criativos de mulheres empreendedoras envolvidas no projeto “Além do Olhar”. Construída utilizando HTML, CSS, JavaScript e React, além de várias bibliotecas, como Bootstrap, Bootstrap Icons e Reactjs-popup.",
+            smallDescription: "Plataforma de divulgação de trabalhos criativos.",
+            images: [
+                { src: './alem_do_olhar/pagina_inicial.png', caption: 'Página inicial' },
+            ],
+            site: "https://alem-do-olhar.vercel.app/",
+            code: "https://github.com/MarcosAlves90/alem_do_olhar",
+        },
+        {
+            name: "Coconut Links",
+            description: "Construído com HTML, CSS, React e o módulo gh-pages do node, o Coconut Links reúne todos os meus links importantes (LinkedIn, GitHub, X (Twitter) e e-mail) com um design minimalista e agradável.",
+            smallDescription: "Página de links pessoais estilo Linktree.",
+            images: [
+                { src: './coconut_links/image_1.png', caption: 'Página inicial' },
+            ],
+            site: "https://marcosalves90.github.io/coconut_links/",
+            code: "https://github.com/MarcosAlves90/coconut_links",
         }
-
     ];
 
     function handleProjectClick(index) {
@@ -438,7 +474,7 @@ export default function MainPage({sectionRefs}) {
                 </article>
                 <article className="sectionCommonBackground">
                     <div className="textBox">
-                        <h1>contatos</h1>
+                        <h1>Contatos</h1>
                         <div className="invertedBox">
                             <div className="contactItem">
                                 <i className="bi bi-envelope-paper"></i>
@@ -453,7 +489,7 @@ export default function MainPage({sectionRefs}) {
                                 <a href="https://wa.me/5511949273886" target="_blank" rel="noopener noreferrer">+55 (11) 94927-3886</a>
                             </div>
                         </div>
-                        <h1>idiomas</h1>
+                        <h1>Idiomas</h1>
                         <div className="invertedBox languages">
                             <p>Português</p>
                             <ProgressBar language="portuguese" progress={8} />
@@ -464,7 +500,7 @@ export default function MainPage({sectionRefs}) {
                         </div>
                     </div>
                     <div className="textBox">
-                        <h1>educação / experiência</h1>
+                        <h1>Educação / Experiência</h1>
                         <div className="invertedBox education">
                             <ul>
                                 <li><span>2022 - 2023</span> Técnico em Informática para Internet</li>
@@ -472,7 +508,7 @@ export default function MainPage({sectionRefs}) {
                                 <li><span>2024 - ...</span> Fazendo freelances e criando projetos pessoais e acadêmicos</li>
                             </ul>
                         </div>
-                        <h1>habilidades</h1>
+                        <h1>Habilidades</h1>
                         <div className="invertedBox skills">
                             {[
                                 { icon: <FaHtml5 />, name: 'HTML5' },
@@ -504,9 +540,13 @@ export default function MainPage({sectionRefs}) {
                 </article>
                 <article ref={el => sectionRefs.current[1] = el} className="sectionDarkBackground projects">
                     <div className="textBox viewer">
-                        <div className="text">
+                        <div className="firstSlice">
                             <h1>{projects[currentProject].name}</h1>
                             <p>{projects[currentProject].description}</p>
+                            <div className={"flex-row buttonsBox"}>
+                                {projects[currentProject].site && <button className={"clickButtton reversed"} onClick={() => window.open(projects[currentProject].site, '_blank')}>Verificar Site</button>}
+                                {projects[currentProject].code && <button className={"clickButtton"} onClick={() => window.open(projects[currentProject].code, '_blank')}>Código Fonte</button>}
+                            </div>
                         </div>
                         <Slideshow slides={projects[currentProject].images} />
                     </div>
