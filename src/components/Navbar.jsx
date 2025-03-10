@@ -156,6 +156,12 @@ function Navbar({sectionRefs}) {
         return () => window.removeEventListener('scroll', handleScroll);
     }, [handleScroll]);
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setTextIndex(prev => (prev + 1) % TEXTS.length);
+        }, 2000);
+        return () => clearInterval(interval);
+    }, []);
 
     return (
         <NavbarContainer
