@@ -9,7 +9,7 @@ const ProgressBarContainer = styled.div`
 
 const ProgressSegment = styled.div`
     height: 0.5rem;
-    background-color: ${({ active }) => active ? 'var(--highlight-color)' : 'var(--background-color)'};
+    background-color: ${({ $active }) => $active ? 'var(--highlight-color)' : 'var(--background-color)'};
     width: 12.5%;
 `;
 
@@ -17,7 +17,7 @@ export default function ProgressBar({ language, progress }) {
     return (
         <ProgressBarContainer className={language}>
             {Array.from({ length: 8 }, (_, index) => (
-                <ProgressSegment key={index} active={index < progress} />
+                <ProgressSegment key={index} $active={index < progress} />
             ))}
         </ProgressBarContainer>
     );

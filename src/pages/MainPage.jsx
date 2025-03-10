@@ -4,7 +4,7 @@ import { FaHtml5, FaCss3Alt, FaJs, FaReact, FaNodeJs, FaJava, FaPhp, FaPython, F
 import { SiAdobephotoshop, SiAdobeillustrator, SiFigma, SiVuedotjs, SiVite, SiC, SiSass, SiBootstrap } from 'react-icons/si';
 import { BiLogoVisualStudio } from 'react-icons/bi';
 import Slideshow from '../components/slideshow.jsx';
-import ProgressBar from '../components/ProgressBar';
+import ProgressBar from '../components/ProgressBar.jsx';
 import ProjectCards from '../components/ProjectCards';
 import {UserContext} from "../UserContext.jsx";
 
@@ -15,8 +15,8 @@ const backgroundAnimation = keyframes`
 `;
 
 const SectionHeader = styled.div`
-    height: 88vh;
-    padding: 12vh 0 0 0;
+    height: calc(100vh - 8rem);
+    padding: 8rem 0 0 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -31,6 +31,7 @@ const SectionHeader = styled.div`
         margin-top: -3.9rem;
         font-family: "Gavency", serif;
         font-size: 11rem;
+        font-weight: 300;
         margin-bottom: 0;
         cursor: pointer;
 
@@ -71,7 +72,7 @@ const SectionHeader = styled.div`
         font-size: 1.15rem;
         cursor: pointer;
         margin-top: 2rem;
-        border-radius: 5px;
+        border-radius: var(--common-border-radius);
 
         &:hover {
             background-color: var(--highlight-color);
@@ -79,6 +80,29 @@ const SectionHeader = styled.div`
 
         &:active {
             transform: scale(0.9);
+        }
+    }
+    
+    @media (max-width: 950px) {
+        background-size: 70px 70px;
+        --common-font-size: 3.78vw;
+        h1 {
+            margin-top: -5vw;
+            font-size: 17vw;
+            &:active {
+                font-size: 13vw;
+            }
+        }
+        p {
+            letter-spacing: 0;
+            margin-top: -5vw;
+            font-size: var(--common-font-size);
+            padding-bottom: 5vw;
+        }
+        button {
+            margin-top: 0;
+            font-size: var(--common-font-size);
+            padding: 0.5rem 22vw;
         }
     }
 `;
@@ -108,6 +132,7 @@ const SectionContent = styled.div`
             justify-content: center;
             align-items: start;
             gap: 1rem;
+            border-radius: var(--common-border-radius);
 
             .contactItem {
                 display: flex;
@@ -277,7 +302,7 @@ const SectionContent = styled.div`
                             padding: 0.7rem 1rem;
                             font-size: 1rem;
                             cursor: pointer;
-                            border-radius: 5px;
+                            border-radius: var(--common-border-radius);
                             width: 100%;
                             font-family: "Poppins", serif;
                             font-weight: 600;
@@ -300,21 +325,42 @@ const SectionContent = styled.div`
             background-color: var(--second-section-background-color);
             color: #f2d6bd;
 
-            .imageBox {
-                height: 16rem;
-                width: 21rem;
-                background-color: var(--second-section-secondary-color);
-                display: flex;
-                align-items: flex-end;
+            &.about {
+                .imageBox {
+                    height: 16rem;
+                    width: 21rem;
+                    background-color: var(--second-section-secondary-color);
+                    display: flex;
+                    align-items: flex-end;
+                    border-radius: var(--common-border-radius) var(--common-border-radius) 0 var(--common-border-radius);
 
-                img {
-                    width: 100%;
-                    height: auto;
-                    transform-origin: bottom;
-                    cursor: pointer;
+                    img {
+                        width: 100%;
+                        height: auto;
+                        transform-origin: bottom;
+                        cursor: pointer;
 
-                    &:active {
-                        transform: scale(0.9);
+                        &:active {
+                            transform: scale(0.9);
+                        }
+                    }
+                }
+                .textBox p {
+                    max-width: 30rem;
+                }
+                @media (max-width: 950px) {
+                    flex-direction: column;
+                    padding: 6rem 2rem 4rem 2rem;
+                    .textBox {
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        flex-direction: column;
+                    }
+                    .textBox p {
+                        margin-bottom: 0;
+                        text-align: justify;
                     }
                 }
             }
@@ -359,17 +405,16 @@ const SectionContent = styled.div`
 `;
 
 export default function MainPage({sectionRefs}) {
-    const [isOpen, setIsOpen] = useState(false);
     const sectionImageRef = useRef(null);
     const [currentProject, setCurrentProject] = useState(0);
-    const {setSlideIndex} = useContext(UserContext);
+    const {setSlideIndex, theme, isMainPageVisible, setIsMainPageVisible} = useContext(UserContext);
 
     const toggleIsOpen = () => {
-        setIsOpen(!isOpen);
+        setIsMainPageVisible(!isMainPageVisible);
     };
 
     useEffect(() => {
-        if (isOpen && sectionImageRef.current) {
+        if (isMainPageVisible && sectionImageRef.current) {
             const offset = (7.95 * window.innerHeight) / 100;
             const elementPosition = sectionImageRef.current.getBoundingClientRect().top + window.pageYOffset;
             const offsetPosition = elementPosition - offset;
@@ -379,7 +424,7 @@ export default function MainPage({sectionRefs}) {
                 behavior: "smooth",
             });
         }
-    }, [isOpen]);
+    }, [isMainPageVisible]);
 
     const projects = [
         {
@@ -408,8 +453,8 @@ export default function MainPage({sectionRefs}) {
             description: "Imagine uma plataforma onde as empresas podem gerenciar funcionários, bater ponto e até corrigir eventuais erros de registro. Esse é o Bunchin, um site de ponto digital e gestão empresarial desenvolvido como parte do projeto interdisciplinar do segundo semestre da minha graduação.",
             smallDescription: "Plataforma de ponto digital e gestão empresarial.",
             images: [
-                { src: 'https://images.ctfassets.net/ihx0a8chifpc/GTlzd4xkx4LmWsG1Kw1BB/ad1834111245e6ee1da4372f1eb5876c/placeholder.com-1280x720.png?w=1920&q=60&fm=webp', caption: 'Caption Text' },
-                { src: 'https://css-tricks.com/wp-content/uploads/2016/01/the-difference-placeholder.png', caption: 'Caption Text' },
+                { src: './bunchin/image_1.png', caption: 'Página inicial' },
+                { src: './bunchin/image_2.png', caption: 'Página de login' },
             ],
             code: "https://github.com/MarcosAlves90/bunchin/tree/main",
         },
@@ -421,10 +466,11 @@ export default function MainPage({sectionRefs}) {
                 "rede social.",
             smallDescription: "Tabletop virtual e rede social voltada à RPG.",
             images: [
-                { src: 'https://images.ctfassets.net/ihx0a8chifpc/GTlzd4xkx4LmWsG1Kw1BB/ad1834111245e6ee1da4372f1eb5876c/placeholder.com-1280x720.png?w=1920&q=60&fm=webp', caption: 'Caption Text' },
-                { src: 'https://css-tricks.com/wp-content/uploads/2016/01/the-difference-placeholder.png', caption: 'Caption Text' },
+                {src: "./dicenders/image_1.png", caption: "Página inicial"},
+                {src: "./dicenders/image_2.png", caption: "Página de cadastro"},
             ],
             site: "https://dicenders-ai8s.onrender.com/",
+            code: "https://github.com/Dicenders/DicendersSite",
         },
         {
             name: "Além do Olhar",
@@ -445,6 +491,30 @@ export default function MainPage({sectionRefs}) {
             ],
             site: "https://marcosalves90.github.io/coconut_links/",
             code: "https://github.com/MarcosAlves90/coconut_links",
+        },
+        {
+            name: "Antônia Fernandes",
+            description: "Site da Antônia Fernandes Store, uma loja online de moda feminina e acessórios, desenvolvido " +
+                "utilizando a plataforma Bagy. Além do editor padrão, personalizei grande parte das seções com HTML e " +
+                "CSS, e criei o logo e as imagens no Photoshop e Illustrator, garantindo um design único e alinhado " +
+                "à identidade da marca.",
+            smallDescription: "Loja online de moda feminina e acessórios.",
+            images: [
+                { src: './antonia_fernandes_store/imagem_1.png', caption: 'Página inicial' },
+                { src: './antonia_fernandes_store/imagem_2.png', caption: 'Página de produtos' },
+            ],
+            site: "https://www.antoniafernandestore.com.br/",
+        },
+        {
+            name: "Which Dog Are You?",
+            description: "Projeto final do curso FRAMEWORK VALLEY: REACT do Codédex. Desenvolvi um quiz de personalidade em React que identifica qual raça de cachorro você seria, com base em preferências pessoais. Utilizei React Router, Context API e sessionStorage para navegação e estado, além de uma API externa para exibir imagens das raças. O site é responsivo, com design amigável e transições suaves.",
+            smallDescription: "Quiz que indica qual seria sua raça de cachorro.",
+            images: [
+                { src: './which_dog_are_you/image_1.png', caption: 'Página inicial' },
+                { src: './which_dog_are_you/image_2.png', caption: 'Página de sobre' },
+            ],
+            site: "https://which-dog-are-you.vercel.app/",
+            code: "https://github.com/MarcosAlves90/personality_quiz"
         }
     ];
 
@@ -458,17 +528,17 @@ export default function MainPage({sectionRefs}) {
             <SectionHeader>
                 <h1>Portfolio</h1>
                 <p>Marcos Lopes | Desenvolvedor Full-Stack</p>
-                <button onClick={toggleIsOpen}>{isOpen ? "Fechar" : "Abrir"}</button>
+                <button onClick={toggleIsOpen}>{isMainPageVisible ? "Fechar" : "Abrir"}</button>
             </SectionHeader>
-            <SectionContent ref={sectionImageRef} className={isOpen ? "" : "closed"}>
-                <article ref={el => sectionRefs.current[0] = el} className="sectionDarkBackground">
+            <SectionContent ref={sectionImageRef} className={isMainPageVisible ? "" : "closed"}>
+                <article ref={el => sectionRefs.current[0] = el} className="sectionDarkBackground about">
                     <div className="imageBox">
-                        <img src="/foto_perfil.png" alt="Profile" />
+                        <img src={theme === "dark" ? "/pilgrim.magenta.png" : "/pilgrim.ciano.png"} alt="Profile" />
                     </div>
                     <div className="textBox">
                         <h1>quem sou <strong>EU</strong>?</h1>
                         <p>
-                            Sou um desenvolvedor full-stack, designer gráfico e escritor<br/>que está sempre disposto a encarar desafios.
+                            Sou um desenvolvedor full-stack, designer gráfico e escritor que está sempre disposto a encarar desafios.
                         </p>
                     </div>
                 </article>
@@ -492,10 +562,10 @@ export default function MainPage({sectionRefs}) {
                         <h1>Idiomas</h1>
                         <div className="invertedBox languages">
                             <p>Português</p>
-                            <ProgressBar language="portuguese" progress={8} />
+                            <ProgressBar progress={8} />
                             <p className="description">Meu idioma natal, nenhuma dificuldade</p>
                             <p>Inglês</p>
-                            <ProgressBar language="english" progress={5} />
+                            <ProgressBar progress={5} />
                             <p className="description">Eu entendo bem, mas minha conversação ainda pode melhorar</p>
                         </div>
                     </div>
@@ -505,7 +575,7 @@ export default function MainPage({sectionRefs}) {
                             <ul>
                                 <li><span>2022 - 2023</span> Técnico em Informática para Internet</li>
                                 <li><span>2024 - 2026</span> Tecnólogo em Desenvolvimento de Software Multiplataforma</li>
-                                <li><span>2024 - ...</span> Fazendo freelances e criando projetos pessoais e acadêmicos</li>
+                                <li><span>2024 - ....</span> Fazendo freelances e criando projetos pessoais e acadêmicos</li>
                             </ul>
                         </div>
                         <h1>Habilidades</h1>

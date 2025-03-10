@@ -14,7 +14,7 @@ const Slide = styled.div`
     width: 640px;
     height: 360px;
 
-    @media (max-width: 1500px) {
+    @media (max-width: 1600px) {
         width: 480px;
         height: 270px;
     }
@@ -24,6 +24,7 @@ const SlideImage = styled.img`
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: var(--common-border-radius);
 `;
 
 const TextOverlay = styled.div`
@@ -51,15 +52,16 @@ const NavigationButton = styled.button`
     background-color: rgba(var(--highlight-color-rgb), 0.4);
     backdrop-filter: blur(10px);
     color: white;
+    --navigation-border-radius: calc(var(--common-border-radius) / 2);
 
     &.prev {
         left: 0;
-        border-radius: 0 20px 20px 0;
+        border-radius: 0 var(--navigation-border-radius) var(--navigation-border-radius) 0;
     }
 
     &.next {
         right: 0;
-        border-radius: 20px 0 0 20px;
+        border-radius: var(--navigation-border-radius) 0 0 var(--navigation-border-radius);
     }
 `;
 
@@ -73,7 +75,7 @@ const Dot = styled.button`
     width: 15px;
     margin: 0 4px;
     border: none;
-    border-radius: 50%;
+    border-radius: calc(var(--common-border-radius) / 2);
     background-color: rgba(var(--highlight-color-rgb), 0.3);
     transition: background-color 0.3s ease;
 
