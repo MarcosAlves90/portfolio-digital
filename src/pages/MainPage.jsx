@@ -3,7 +3,7 @@ import styled, { keyframes } from 'styled-components';
 import { FaHtml5, FaCss3Alt, FaJs, FaReact, FaNodeJs, FaJava, FaPhp, FaPython, FaGitAlt } from 'react-icons/fa';
 import { SiAdobephotoshop, SiAdobeillustrator, SiFigma, SiVuedotjs, SiVite, SiC, SiSass, SiBootstrap } from 'react-icons/si';
 import { BiLogoVisualStudio } from 'react-icons/bi';
-import Slideshow from '../components/slideshow.jsx';
+import Slideshow from '../components/SlideShow.jsx';
 import ProgressBar from '../components/ProgressBar.jsx';
 import ProjectCards from '../components/ProjectCards';
 import {UserContext} from "../UserContext.jsx";
