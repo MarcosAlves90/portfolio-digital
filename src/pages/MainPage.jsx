@@ -413,18 +413,18 @@ export default function MainPage({sectionRefs}) {
         setIsMainPageVisible(!isMainPageVisible);
     };
 
-    useEffect(() => {
-        if (isMainPageVisible && sectionImageRef.current) {
-            const offset = (7.95 * window.innerHeight) / 100;
-            const elementPosition = sectionImageRef.current.getBoundingClientRect().top + window.pageYOffset;
-            const offsetPosition = elementPosition - offset;
+useEffect(() => {
+    if (isMainPageVisible && sectionImageRef.current) {
+        const offset = 5 * parseFloat(getComputedStyle(document.documentElement).fontSize);
+        const elementPosition = sectionImageRef.current.getBoundingClientRect().top + window.pageYOffset;
+        const offsetPosition = elementPosition - offset;
 
-            window.scrollTo({
-                top: offsetPosition,
-                behavior: "smooth",
-            });
-        }
-    }, [isMainPageVisible]);
+        window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+        });
+    }
+}, [isMainPageVisible]);
 
     const projects = [
         {
